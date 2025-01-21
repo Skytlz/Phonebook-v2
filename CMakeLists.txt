@@ -4,4 +4,7 @@ project(untitled)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(untitled main.cpp
-        bst.h)
+        bst.hpp
+        bst.cpp
+        person.h
+        person.cpp)
