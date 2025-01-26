@@ -12,11 +12,11 @@ using std::string;
 typedef struct {
     string firstname;
     string lastname;
-    string email;
-    string address;
+    //string email;
+    //string address;
     string phone;
-    string birthday;
-    string occupation;
+    // string birthday;
+    // string occupation;
 } Person;
 
 std::ostream& operator<<(std::ostream& os, const Person& person);
