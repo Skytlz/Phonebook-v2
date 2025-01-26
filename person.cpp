@@ -10,7 +10,6 @@ std::ostream &operator<<(std::ostream &os, const Person &person) {
     os << "Phone number: " << person.phone << std::endl;
     //os << "Email: " << person.email << std::endl;
     //os << "Address: " << person.address << std::endl;
-    os << "Phone number: " << person.phone << std::endl;
     //os << "Birthday: " << person.birthday << std::endl;
     //os << "Occupation: " << person.occupation << std::endl;
     os << std::endl;
