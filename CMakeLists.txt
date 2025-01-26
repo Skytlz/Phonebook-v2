@@ -8,7 +8,7 @@ bst.cpp
 bst.hpp
 person.cpp
 person.h
-main.cpp)
+)
 
 set(TEST_SRC
         UnitTests.cpp
