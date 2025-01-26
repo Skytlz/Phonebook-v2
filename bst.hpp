@@ -6,6 +6,8 @@
 #ifndef BST_HPP
 #define BST_HPP
 #include <utility>
+#include <vector>
+#include <ostream>
 
 #include "person.h"
 
@@ -22,24 +24,32 @@ class BST {
     private:
         struct Node* root;
         bool allowDuplicates = false;
+
+        static Node* insertHelper(const Person &person, Node* current, bool duplicates);
+        static Node* deleteHelper(Node* current);
+        static Node* deleteNode(Node* root, const Person& person);
+        static Node* searchHelper(Node *current, const Person& person);
+        static void findHelper(const Node* current, const std::string& key, int type, std::vector<Person>& result);
+        static int height(const Node* node);
+        static void inorder(const Node* node, std::ostream& os);
+        static void preorder(const Node* node, std::ostream& os);
+        static void postorder(const Node* node, std::ostream& os);
+
     public:
         BST() : root(nullptr) {}
         //BST(const BST& other);
         explicit BST(bool allowDuplicates);
-        Node* insert(const Person& person) const;
-        Node* deleteNode(Person person);
-        bool search(Person person);
-        Node* findNode(Person person);
-        int height(Node* node);
-        void inorder(Node* node);
-        void preorder(Node* node);
-        void postorder(Node* node);
-
+        Node* insertPerson(const Person& person) const;
+        Node* deletePerson(const Person& person) const;
+        bool search(const Person& person) const;
+        std::vector<Person> findByFirstname(const std::string& firstname) const;
+        std::vector<Person> findByLastname(const std::string& lastname) const;
+        std::vector<Person> findByPhone(const std::string& phone) const;
+        int height() const;
+        void inorder(std::ostream& os) const;
+        void preorder(std::ostream& os) const;
+        void postorder(std::ostream& os) const;
 };
-Node* insertHelper(const Person &person, const Node* current, bool duplicates);
-Node* deleteHelper(Person person, Node* current, Node* previous);
-bool searchHelper(Person person, Node* current, Node* previous);
-
 std::ostream& operator<<(std::ostream& os, const BST& bst);
 
 #endif //BST_HPP

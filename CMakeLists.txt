@@ -12,7 +12,8 @@ person.h
 
 set(TEST_SRC
         UnitTests.cpp
-        personTest.cpp)
+        personTest.cpp
+        bstTest.cpp)
 
 set(PHONEBOOK_SRC
 main.cpp)
