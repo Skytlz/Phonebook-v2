@@ -22,10 +22,10 @@ struct Node{
 
 class BST {
     private:
-        struct Node* root;
-        bool allowDuplicates = false;
+        Node* root;
+        bool allowDuplicates = true;
 
-        static Node* insertHelper(const Person &person, Node* current, bool duplicates);
+        static bool insertHelper(const Person &person, Node* current, bool duplicates);
         static Node* deleteHelper(Node* current);
         static Node* deleteNode(Node* root, const Person& person);
         static Node* searchHelper(Node *current, const Person& person);
@@ -39,7 +39,8 @@ class BST {
         BST() : root(nullptr) {}
         //BST(const BST& other);
         explicit BST(bool allowDuplicates);
-        Node* insertPerson(const Person& person) const;
+        bool duplicates() const;
+        bool insertPerson(const Person& person);
         Node* deletePerson(const Person& person) const;
         bool search(const Person& person) const;
         std::vector<Person> findByFirstname(const std::string& firstname) const;

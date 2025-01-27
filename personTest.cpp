@@ -91,7 +91,7 @@ TEST_CASE("Person Ostream Test", "[Person]") {
     person.phone = "1234567";
 
     std::ostringstream os;
-    std::string output = "Name: Doe, John\nPhone number: 1234567\n\n";
+    std::string output = "Name: Doe, John\nPhone number: 1234567\n";
     os << person;
     REQUIRE(output == os.str());
 }

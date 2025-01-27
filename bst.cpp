@@ -3,31 +3,45 @@
 //
 #include "bst.hpp"
 #include <iostream>
-#include <utility>
 
 BST::BST(const bool allowDuplicates) {
     root = nullptr;
     this->allowDuplicates = allowDuplicates;
 }
 
-Node* BST::insertHelper(const Person &person, Node* current, bool duplicates) {
+bool BST::duplicates() const {
+    return allowDuplicates;
+}
+
+bool BST::insertHelper(const Person &person, Node* current, bool duplicates) {
     if (current == nullptr) {
-        return new Node(person);
+        return new(std::nothrow) Node(person);
     }
 
     if (current->person == person && !duplicates) {
-        return current;
+        return false;
     }
 
-    if (current->person <= person) {
-        current->right = insertHelper(person, current->right, duplicates);
-    }else {
-        current->left = insertHelper(person, current->left, duplicates);
+    if (current->person > person) {
+        if (current->left == nullptr) {
+            current->left = new(std::nothrow) Node(person);
+            return current->left != nullptr;
+        }
+        return insertHelper(person, current->left, duplicates);
+    } else {
+        if (current->right == nullptr) {
+            current->right = new(std::nothrow) Node(person);
+            return current->right != nullptr;
+        }
+        return insertHelper(person, current->right, duplicates);
     }
-    return current;
 }
 
-Node *BST::insertPerson(const Person& person) const {
+bool BST::insertPerson(const Person &person) {
+    if (root == nullptr) {
+        root = new(std::nothrow) Node(person);
+        return root != nullptr;
+    }
     return insertHelper(person, root, allowDuplicates);
 }
 
@@ -157,7 +171,7 @@ void BST::inorder(const Node *node, std::ostream& os) {
         os << node->person << std::endl;
         inorder(node->right, os);
     }
-    os << "END OF TREE";
+
 }
 
 void BST::preorder(const Node *node, std::ostream& os) {
@@ -196,5 +210,6 @@ void BST::postorder(std::ostream& os) const {
 
 std::ostream& operator<<(std::ostream& os, const BST& bst) {
     bst.inorder(os);
+    os << "END OF TREE";
     return os;
 }
