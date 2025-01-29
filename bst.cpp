@@ -45,9 +45,9 @@ bool BST::insertPerson(const Person &person) {
     return insertHelper(person, root, allowDuplicates);
 }
 
-Node *BST::deletePerson(const Person& person) const {
+bool BST::deletePerson(const Person& person) {
     bool deleted = false;
-    root = deleteNode(person, root, deleted);
+    root = deleteNode(root, person, deleted);
     return deleted;
 }
 
@@ -61,32 +61,33 @@ Node *BST::deleteHelper(Node *current){
 }
 
 
-Node *BST::deleteNode(Node* current, const Person& person, bool deleted) {
+Node *BST::deleteNode(Node* current, const Person& person, bool& deleted) {
     if (current == nullptr) {
         return nullptr;
     }
 
     if (current->person > person) {
-        root->left = deleteNode(root->left, person);
-    } else if (root->person < person) {
-        root->right = deleteNode(root->right, person);
+        current->left = deleteNode(current->left, person, deleted);
+    } else if (current->person < person) {
+        current->right = deleteNode(current->right, person, deleted);
     } else {
-        if (root->left == nullptr) {
-            Node *temp = root->right;
-            delete root;
+        deleted = true;
+        if (current->left == nullptr) {
+            Node *temp = current->right;
+            delete current;
             return temp;
         }
-        if (root->right == nullptr) {
-            Node *temp = root->left;
-            delete root;
+        if (current->right == nullptr) {
+            Node *temp = current->left;
+            delete current;
             return temp;
         }
 
-        const Node *temp = deleteHelper(root);
-        root->person = temp->person;
-        root->right = deleteNode(root->right, temp->person);
+        const Node *temp = deleteHelper(current);
+        current->person = temp->person;
+        current->right = deleteNode(current->right, temp->person, deleted);
     }
-    return root;
+    return current;
 }
 
 Node* BST::searchHelper(Node *current, const Person& person) {

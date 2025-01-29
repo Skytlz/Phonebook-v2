@@ -27,7 +27,7 @@ class BST {
 
         static bool insertHelper(const Person &person, Node* current, bool duplicates);
         static Node* deleteHelper(Node* current);
-        static Node* deleteNode(Node* root, const Person& person, bool deleted);
+        static Node* deleteNode(Node* root, const Person& person, bool& deleted);
         static Node* searchHelper(Node *current, const Person& person);
         static void findHelper(const Node* current, const std::string& key, int type, std::vector<Person>& result);
         static int height(const Node* node);
@@ -41,7 +41,7 @@ class BST {
         explicit BST(bool allowDuplicates);
         bool duplicates() const;
         bool insertPerson(const Person& person);
-        Node* deletePerson(const Person& person) const;
+        bool deletePerson(const Person& person);
         bool search(const Person& person) const;
         std::vector<Person> findByFirstname(const std::string& firstname) const;
         std::vector<Person> findByLastname(const std::string& lastname) const;

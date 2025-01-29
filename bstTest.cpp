@@ -99,4 +99,6 @@ TEST_CASE("BST Delete", "[BST]") {
     REQUIRE(bststream.str() == personstream.str());
 
     REQUIRE(bst.deletePerson(person));
+    REQUIRE(bst.deletePerson(person2));
+    REQUIRE(bst.deletePerson(person3));
 }
