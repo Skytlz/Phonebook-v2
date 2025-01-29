@@ -46,7 +46,9 @@ bool BST::insertPerson(const Person &person) {
 }
 
 Node *BST::deletePerson(const Person& person) const {
-    return deleteNode(root, person);
+    bool deleted = false;
+    root = deleteNode(person, root, deleted);
+    return deleted;
 }
 
 
@@ -59,12 +61,12 @@ Node *BST::deleteHelper(Node *current){
 }
 
 
-Node *BST::deleteNode(Node* root, const Person& person) {
-    if (root == nullptr) {
-        return root;
+Node *BST::deleteNode(Node* current, const Person& person, bool deleted) {
+    if (current == nullptr) {
+        return nullptr;
     }
 
-    if (root->person > person) {
+    if (current->person > person) {
         root->left = deleteNode(root->left, person);
     } else if (root->person < person) {
         root->right = deleteNode(root->right, person);

@@ -65,3 +65,38 @@ TEST_CASE("BST Insert", "[BST]") {
     bststream << bst;
     REQUIRE(bststream.str() == personstream.str());
 }
+
+TEST_CASE("BST Delete", "[BST]") {
+    BST bst;
+    Person person;
+    person.firstname = "John";
+    person.lastname = "Doe";
+    person.phone = "12345";
+
+    Person person2;
+    person2.firstname = "Jane";
+    person2.lastname = "Doe";
+    person2.phone = "12345";
+
+    Person person3;
+    person3.firstname = "Michael";
+    person3.lastname = "Xantham";
+    person3.phone = "12345";
+
+    REQUIRE(bst.insertPerson(person));
+    REQUIRE(bst.insertPerson(person2));
+    REQUIRE(bst.insertPerson(person3));
+
+    REQUIRE(bst.height() == 2);
+
+    std::ostringstream personstream;
+    std::ostringstream bststream;
+
+    personstream.str(std::string());
+    personstream << person2 << std::endl << person << std::endl << person3 << std::endl << "END OF TREE";
+    bststream.str(std::string());
+    bststream << bst;
+    REQUIRE(bststream.str() == personstream.str());
+
+    REQUIRE(bst.deletePerson(person));
+}
